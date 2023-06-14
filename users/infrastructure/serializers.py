@@ -47,6 +47,22 @@ class CreateUserSerializer(serializers.ModelSerializer):
                 'email':_('Invalid email'),
             })   
         return value
+    
+    def validated_name(self, value):
+        regex = re.compile(r"^[A-Za-záéíóúñÁÉÍÓÚÑ\s]+$")
+        if not re.fullmatch(regex, value):
+            raise serializers.ValidationError({
+                'name':_('Invalid name.'),
+            })
+        return value
+    
+    def validated_surname(self, value):
+        regex = re.compile(r"^[A-Za-záéíóúñÁÉÍÓÚÑ\s]+$")
+        if not re.fullmatch(regex, value):
+            raise serializers.ValidationError({
+                'name':_('Invalid surname.'),
+            })
+        return value
 
     def validate_password(self, value):
         try:
