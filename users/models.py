@@ -59,12 +59,24 @@ class User(AbstractBaseUser, PermissionsMixin):
         null=False,
         blank=False,
         max_length=90,
+        validators=[
+            RegexValidator(
+                regex=r"^[A-Za-záéíóúñÁÉÍÓÚÑ\s]+$",
+                message=_('Invalid name.'),
+            )
+        ]
     )
     surname = models.CharField(
         _("surname"),
         null=False,
         blank=False,
         max_length=90,
+        validators=[
+            RegexValidator(
+                regex=r"^[A-Za-záéíóúñÁÉÍÓÚÑ\s]+$",
+                message=_('Invalid surname.'),
+            )
+        ]
     )
     email = models.EmailField(
         _('email'),
